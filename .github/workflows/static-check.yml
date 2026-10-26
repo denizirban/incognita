@@ -17,3 +17,5 @@ jobs:
         run: node scripts/test_alignment.cjs
       - name: Verify zinc coordination screening
         run: node scripts/test_zinc.cjs
+      - name: Verify conservative MD preparation gate
+        run: node scripts/test_md_gate.cjs
