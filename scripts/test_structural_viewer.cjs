@@ -11,4 +11,7 @@ assert(html.includes('class="viewport fallback-mode"'),'Stable viewer must be vi
 assert(html.includes("fallbackMode=true"),'Stable Molstar viewer must be initial mode');
 assert(html.includes("document.querySelector('.viewport').classList.remove('fallback-mode')"),'Clean viewer must appear only after model renders');
 assert(html.includes("$('#protein').onchange=load;load();"),'Viewer must initialize without waiting for external script window load');
+assert(html.includes('visibility:hidden;pointer-events:none'),'Fallback must keep native canvas measurable for WebGL initialization');
+assert(!html.includes('.viewport.fallback-mode #nativeMolecule{display:none}'),'Never initialize WebGL in display:none canvas');
+assert(html.includes("if(!window.$3Dmol)await new Promise"),'Wait for external renderer before clean mode');
 console.log('PASS: atlas script syntax, native canvas sizing, Molstar fallback and manual viewer switch');
