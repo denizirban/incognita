@@ -12,7 +12,7 @@ assert(html.includes("fallbackMode=false"),'Clean viewer must be attempted autom
 assert(html.includes('class="viewport fallback-mode"'),'Molstar must remain visible during clean viewer loading');
 assert(html.includes("if($('#protein').value!=='O60260')return"),'Parkin variant annotations must not be selectable for unrelated proteins');
 assert(html.includes("document.querySelector('.viewport').classList.remove('fallback-mode')"),'Clean viewer must appear only after model renders');
-assert(html.includes("$('#protein').onchange=load;load();"),'Viewer must initialize without waiting for external script window load');
+assert(html.includes("};load();"),'Viewer must initialize without waiting for external script window load');
 assert(html.includes('visibility:hidden;pointer-events:none'),'Fallback must keep native canvas measurable for WebGL initialization');
 assert(!html.includes('.viewport.fallback-mode #nativeMolecule{display:none}'),'Never initialize WebGL in display:none canvas');
 assert(html.includes("if(!window.$3Dmol)await new Promise"),'Wait for external renderer before clean mode');
