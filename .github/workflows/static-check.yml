@@ -19,3 +19,5 @@ jobs:
         run: node scripts/test_zinc.cjs
       - name: Verify conservative MD preparation gate
         run: node scripts/test_md_gate.cjs
+      - name: Verify Parkinson 3D atlas graph and references
+        run: node scripts/test_atlas_graph.cjs
