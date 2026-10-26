@@ -8,7 +8,9 @@ for(const token of ['id="nativeMolecule"','id="molstarFallback"','id="switchView
 assert(!/(?<!\$)\$\('\.molecule-toolbar button\[data-view\]'\)\.forEach/.test(html),'Single-element selector cannot be iterated; viewer startup would fail');
 assert(html.includes("$('.molecule-toolbar button[data-view]').forEach"),'Representation toolbar must use querySelectorAll');
 assert(html.includes('class="viewport fallback-mode"'),'Stable viewer must be visible by default');
-assert(html.includes("fallbackMode=true"),'Stable Molstar viewer must be initial mode');
+assert(html.includes("fallbackMode=false"),'Clean viewer must be attempted automatically');
+assert(html.includes('class="viewport fallback-mode"'),'Molstar must remain visible during clean viewer loading');
+assert(html.includes("if($('#protein').value!=='O60260')return"),'Parkin variant annotations must not be selectable for unrelated proteins');
 assert(html.includes("document.querySelector('.viewport').classList.remove('fallback-mode')"),'Clean viewer must appear only after model renders');
 assert(html.includes("$('#protein').onchange=load;load();"),'Viewer must initialize without waiting for external script window load');
 assert(html.includes('visibility:hidden;pointer-events:none'),'Fallback must keep native canvas measurable for WebGL initialization');
