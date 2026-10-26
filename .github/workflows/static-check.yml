@@ -15,3 +15,5 @@ jobs:
         run: python3 scripts/check_static.py
       - name: Verify structural alignment numerics
         run: node scripts/test_alignment.cjs
+      - name: Verify zinc coordination screening
+        run: node scripts/test_zinc.cjs
