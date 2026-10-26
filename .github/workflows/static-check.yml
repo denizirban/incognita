@@ -25,3 +25,5 @@ jobs:
         run: node scripts/test_protein_handoff.cjs
       - name: Verify catalytic C431 spotlight safeguards
         run: node scripts/test_c431_spotlight.cjs
+      - name: Verify structural viewer recovery path
+        run: node scripts/test_structural_viewer.cjs
