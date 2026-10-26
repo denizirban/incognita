@@ -69,7 +69,7 @@ def main() -> int:
     sim.context.setPositions(modeller.positions)
     sim.minimizeEnergy()
     sim.context.setVelocitiesToTemperature(args.temperature_k * kelvin, args.seed)
-    output.mkdir(parents=True, exist_ok=False)
+    output.mkdir(parents=True, exist_ok=True)
     with (output / "system.pdb").open("w") as fh:
         PDBFile.writeFile(modeller.topology, modeller.positions, fh, keepIds=True)
     sim.step(args.equilibration_steps)
