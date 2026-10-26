@@ -7,7 +7,7 @@ import subprocess
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("index.html", "parkin-atlas.html", "molecular-viewer.html", "compare.html", "evidence.html", "structure.html")
+PAGES = ("index.html", "parkin-atlas.html", "molecular-viewer.html", "compare.html", "evidence.html", "zinc-audit.html", "structure.html")
 
 
 class Inspector(HTMLParser):
