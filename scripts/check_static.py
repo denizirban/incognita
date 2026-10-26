@@ -16,6 +16,7 @@ class Inspector(HTMLParser):
         self.links = []
         self.scripts = []
         self.in_inline_script = False
+        self.script_types = []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -24,8 +25,11 @@ class Inspector(HTMLParser):
             if url and not url.startswith(("http:", "https:", "#", "mailto:", "data:")):
                 self.links.append(url.split("?", 1)[0].split("#", 1)[0])
         if tag == "script" and "src" not in attrs:
-            self.in_inline_script = True
-            self.scripts.append("")
+            kind = attrs.get("type", "").lower()
+            if kind != "importmap":
+                self.in_inline_script = True
+                self.scripts.append("")
+                self.script_types.append(kind)
 
     def handle_endtag(self, tag):
         if tag == "script":
@@ -53,7 +57,7 @@ def main():
         for index, js in enumerate(inspector.scripts):
             if not js.strip():
                 continue
-            with tempfile.NamedTemporaryFile("w", suffix=".js", encoding="utf-8") as temp:
+            with tempfile.NamedTemporaryFile("w", suffix=".mjs" if inspector.script_types[index] == "module" else ".js", encoding="utf-8") as temp:
                 temp.write(js)
                 temp.flush()
                 proc = subprocess.run(["node", "--check", temp.name], capture_output=True, text=True)
