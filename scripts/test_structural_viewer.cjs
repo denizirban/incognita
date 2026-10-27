@@ -6,7 +6,7 @@ assert(match,'Missing atlas script');
 new vm.Script(match[1],{filename:'parkin-atlas.inline.js'});
 for(const token of ['id="nativeMolecule"','id="molstarFallback"','id="switchViewer"','function useFallback(','function useClean(','viewer.resize()','if(serial===requestSerial)useFallback('])assert(html.includes(token),'Missing recovery path: '+token);
 assert(!/(?<!\$)\$\('\.molecule-toolbar button\[data-view\]'\)\.forEach/.test(html),'Single-element selector cannot be iterated; viewer startup would fail');
-assert(html.includes("$('.molecule-toolbar button[data-view]').forEach"),'Representation toolbar must use querySelectorAll');
+assert(html.includes("$$('.molecule-toolbar button[data-view]').forEach"),'Representation toolbar must use querySelectorAll');
 assert(html.includes('class="viewport fallback-mode"'),'Stable viewer must be visible by default');
 assert(html.includes("fallbackMode=false"),'Clean viewer must be attempted automatically');
 assert(html.includes('class="viewport fallback-mode"'),'Molstar must remain visible during clean viewer loading');
@@ -16,4 +16,10 @@ assert(html.includes("};load();"),'Viewer must initialize without waiting for ex
 assert(html.includes('visibility:hidden;pointer-events:none'),'Fallback must keep native canvas measurable for WebGL initialization');
 assert(!html.includes('.viewport.fallback-mode #nativeMolecule{display:none}'),'Never initialize WebGL in display:none canvas');
 assert(html.includes("if(!window.$3Dmol)await new Promise"),'Wait for external renderer before clean mode');
+for(const selector of ['#domainTools button','#variants button','.molecule-toolbar button[data-view]']) {
+  const bad = "$('"+selector+"').forEach";
+  assert(!html.includes(bad) || html.includes(' atlas script syntax, native canvas sizing, Molstar fallback and manual viewer switch');
++bad),'Selector must use querySelectorAll: '+selector);
+}
+assert(html.includes("backgroundColor:'#0c1420'"),'Clean viewer should match dark background');
 console.log('PASS: atlas script syntax, native canvas sizing, Molstar fallback and manual viewer switch');
