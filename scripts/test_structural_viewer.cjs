@@ -22,4 +22,7 @@ for(const selector of ['#domainTools button','#variants button','.molecule-toolb
 +bad),'Selector must use querySelectorAll: '+selector);
 }
 assert(html.includes("backgroundColor:'#0c1420'"),'Clean viewer should match dark background');
+assert(!html.includes("$$('"),'Invalid triple-dollar DOM selector causes click handler errors');
+assert(html.includes("$('.molecule-toolbar button[data-view]').forEach(x=>x.classList.toggle('active',x===b))"),'View buttons must update selected state');
+assert(html.includes("viewStyle=b.dataset.view;"),'View buttons must change rendering style');
 console.log('PASS: atlas script syntax, native canvas sizing, Molstar fallback and manual viewer switch');
